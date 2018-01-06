@@ -15,24 +15,33 @@ public class Market {
 		remSpace = _cap;
 		
 		Stock=new HashMap<String,Integer>();
+		Stock.put("apple", 0);
+		Stock.put("banana", 0);
+		Stock.put("grapes", 0);
+		Stock.put("cherries", 0);
 	}
 	public synchronized void sellTo(HashMap<String,Integer> sellingBag) throws InterruptedException
 	{
 		int tempSum=capacity;
-		while((tempSum+remSpace) > capacity)
+		while(remSpace < tempSum)
 		{
 			tempSum=0;
 			for(Map.Entry<String, Integer> entry : sellingBag.entrySet())
 			{
 				tempSum +=entry.getValue();
-			
+				
 			}
-			if((tempSum+remSpace) > capacity)
+			if(remSpace<tempSum)
 			{
+				System.out.println("Farmer is waiting..");
 				wait();
 			}
 			else
-				break;
+			{
+				remSpace-=tempSum;
+				break;	
+			}
+			
 		}
 		for(Map.Entry<String, Integer> entry : sellingBag.entrySet())
 		{
@@ -49,20 +58,29 @@ public class Market {
 	}
 	public synchronized void purchaseFrom(HashMap<String,Integer> purchasingBag) throws InterruptedException
 	{
-		int tempSum=0;
-		while(tempSum > (capacity-remSpace) )
+		boolean flag=false;
+		
+		int tempSum=capacity;
+		while(flag==false )
 		{
+			flag=true;
 			tempSum=0;
 			for(Map.Entry<String, Integer> entry : purchasingBag.entrySet())
 			{
+				if(entry.getValue() > Stock.get(entry.getKey()) )
+					flag=false;
 				tempSum +=entry.getValue();
 			}
-			if(tempSum > (capacity-remSpace) )
+			if(flag==false )
 			{
+				System.out.println("Consumer is waiting...");
 				wait();
 			}
 			else
-				break;
+			{
+				remSpace+=tempSum;
+				break;	
+			}
 		}
 		for(Map.Entry<String, Integer> entry : purchasingBag.entrySet())
 		{
