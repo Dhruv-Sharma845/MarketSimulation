@@ -30,6 +30,12 @@ public class Market {
 	}
 	public synchronized void sellTo(HashMap<String,Integer> sellingBag) throws InterruptedException
 	{
+		System.out.println("Farmer has come to sell.");
+		System.out.println("Farmer wants to sell:");
+		System.out.println("apple: "+sellingBag.get("apple"));
+		System.out.println("banana: "+sellingBag.get("banana"));
+		System.out.println("grapes: "+sellingBag.get("grapes"));
+		System.out.println("cherries: "+sellingBag.get("cherries"));
 		int tempSum=capacity;
 		while(remSpace < tempSum)
 		{
@@ -63,9 +69,16 @@ public class Market {
 			}
 		}
 		notifyAll();
+		System.out.println("Farmer is done with the selling.");
 	}
 	public synchronized void purchaseFrom(HashMap<String,Integer> purchasingBag) throws InterruptedException
 	{
+		System.out.println("\t\t\t\t\t\t\t\t\tConsumer has come to purchase.");
+		System.out.println("\t\t\t\t\t\t\t\t\tConsumer wants to purchase: ");
+		System.out.println("\t\t\t\t\t\t\t\t\tapple: "+purchasingBag.get("apple"));
+		System.out.println("\t\t\t\t\t\t\t\t\tbanana: "+purchasingBag.get("banana"));
+		System.out.println("\t\t\t\t\t\t\t\t\tgrapes: "+purchasingBag.get("grapes"));
+		System.out.println("\t\t\t\t\t\t\t\t\tcherries: "+purchasingBag.get("cherries"));
 		boolean flag=false;
 		
 		int tempSum=capacity;
@@ -102,6 +115,7 @@ public class Market {
 			}
 		}
 		notifyAll();
+		System.out.println("\t\t\t\t\t\t\t\t\tConsumer is done with the purchasing.");
 	}
 	
 }

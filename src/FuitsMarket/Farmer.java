@@ -15,7 +15,7 @@ public class Farmer implements Runnable{
 	public void run()
 	{
 		//code for farmer
-		System.out.println("Farmer has come to sell.");
+		
 	
 		int numOfApples = ThreadLocalRandom.current().nextInt(0, 10);
 		int numOfBananas = ThreadLocalRandom.current().nextInt(0, 10);
@@ -28,11 +28,6 @@ public class Farmer implements Runnable{
 		sbag.put("grapes", numOfGrapes);
 		sbag.put("cherries", numOfCherries);
 		
-		System.out.println("Farmer wants to sell:");
-		System.out.println("apple: "+numOfApples);
-		System.out.println("banana: "+numOfBananas);
-		System.out.println("grapes: "+numOfGrapes);
-		System.out.println("cherries: "+numOfCherries);
 		
 		try {
 			market.sellTo(sbag);
@@ -40,8 +35,6 @@ public class Farmer implements Runnable{
 			e.printStackTrace();
 		}
 		
-		
-		System.out.println("Farmer is done with the selling.");
 		market.showMarketCondition();
 	}
 }
