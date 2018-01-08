@@ -13,7 +13,7 @@ public class Consumer implements Runnable{
 	public void run()
 	{
 		//code for farmer
-		System.out.println("Consumer has come to purchase.");
+		System.out.println("\t\t\t\t\t\t\t\t\tConsumer has come to purchase.");
 	
 		int numOfApples = ThreadLocalRandom.current().nextInt(0, 5);
 		int numOfBananas = ThreadLocalRandom.current().nextInt(0, 5);
@@ -26,11 +26,11 @@ public class Consumer implements Runnable{
 		pbag.put("grapes", numOfGrapes);
 		pbag.put("cherries", numOfCherries);
 		
-		System.out.println("Consumer wants to purchase: ");
-		System.out.println("apple: "+numOfApples);
-		System.out.println("banana: "+numOfBananas);
-		System.out.println("grapes: "+numOfGrapes);
-		System.out.println("cherries: "+numOfCherries);
+		System.out.println("\t\t\t\t\t\t\t\t\tConsumer wants to purchase: ");
+		System.out.println("\t\t\t\t\t\t\t\t\tapple: "+numOfApples);
+		System.out.println("\t\t\t\t\t\t\t\t\tbanana: "+numOfBananas);
+		System.out.println("\t\t\t\t\t\t\t\t\tgrapes: "+numOfGrapes);
+		System.out.println("\t\t\t\t\t\t\t\t\tcherries: "+numOfCherries);
 		
 		try {
 			market.purchaseFrom(pbag);
@@ -38,8 +38,7 @@ public class Consumer implements Runnable{
 			e.printStackTrace();
 		}
 		
-		
-		
-		System.out.println("Consumer is done with the purchasing.");
+		System.out.println("\t\t\t\t\t\t\t\t\tConsumer is done with the purchasing.");
+		market.showMarketCondition();
 	}
 }

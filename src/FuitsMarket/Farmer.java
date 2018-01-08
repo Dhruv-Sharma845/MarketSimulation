@@ -42,5 +42,6 @@ public class Farmer implements Runnable{
 		
 		
 		System.out.println("Farmer is done with the selling.");
+		market.showMarketCondition();
 	}
 }

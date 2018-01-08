@@ -20,6 +20,14 @@ public class Market {
 		Stock.put("grapes", 0);
 		Stock.put("cherries", 0);
 	}
+	public synchronized void showMarketCondition()
+	{
+		System.out.println("\t\t\t\t\tapple banana grapes cherries");
+		System.out.print("\t\t\t\t\t"+Stock.get("apple")+"     ");
+		System.out.print(Stock.get("banana")+"      ");
+		System.out.print(Stock.get("grapes")+"      ");
+		System.out.println(Stock.get("cherries"));
+	}
 	public synchronized void sellTo(HashMap<String,Integer> sellingBag) throws InterruptedException
 	{
 		int tempSum=capacity;
@@ -73,7 +81,7 @@ public class Market {
 			}
 			if(flag==false )
 			{
-				System.out.println("Consumer is waiting...");
+				System.out.println("\t\t\t\t\t\t\t\t\tConsumer is waiting...");
 				wait();
 			}
 			else

@@ -13,7 +13,7 @@ public class TestMarketSimulation {
 		Market market=new Market(marketCapacity);
 		
 		int counter=0;
-		while(counter<20)
+		while(counter<4)
 		{
 			counter++;
 			int arrivalType = ThreadLocalRandom.current().nextInt(0, 2);
