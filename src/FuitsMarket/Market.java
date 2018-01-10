@@ -28,9 +28,9 @@ public class Market {
 		System.out.print(Stock.get("grapes")+"      ");
 		System.out.println(Stock.get("cherries"));
 	}
-	public synchronized void sellTo(HashMap<String,Integer> sellingBag) throws InterruptedException
+	public synchronized void sellTo(int id,HashMap<String,Integer> sellingBag) throws InterruptedException
 	{
-		System.out.println("Farmer has come to sell.");
+		System.out.println("Farmer "+id+" has come to sell.");
 		System.out.println("Farmer wants to sell:");
 		System.out.println("apple: "+sellingBag.get("apple"));
 		System.out.println("banana: "+sellingBag.get("banana"));
@@ -71,9 +71,9 @@ public class Market {
 		notifyAll();
 		System.out.println("Farmer is done with the selling.");
 	}
-	public synchronized void purchaseFrom(HashMap<String,Integer> purchasingBag) throws InterruptedException
+	public synchronized void purchaseFrom(int id,HashMap<String,Integer> purchasingBag) throws InterruptedException
 	{
-		System.out.println("\t\t\t\t\t\t\t\t\tConsumer has come to purchase.");
+		System.out.println("\t\t\t\t\t\t\t\t\tConsumer "+id+" has come to purchase.");
 		System.out.println("\t\t\t\t\t\t\t\t\tConsumer wants to purchase: ");
 		System.out.println("\t\t\t\t\t\t\t\t\tapple: "+purchasingBag.get("apple"));
 		System.out.println("\t\t\t\t\t\t\t\t\tbanana: "+purchasingBag.get("banana"));

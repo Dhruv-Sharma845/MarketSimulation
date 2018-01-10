@@ -5,10 +5,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Consumer implements Runnable{
 	Market market;
+	int ConsumerID;
 	
-	public Consumer(Market market)
+	public Consumer(int id,Market market)
 	{
 		this.market=market;
+		ConsumerID = id;
 	}
 	public void run()
 	{
@@ -27,7 +29,7 @@ public class Consumer implements Runnable{
 		
 		
 		try {
-			market.purchaseFrom(pbag);
+			market.purchaseFrom(ConsumerID,pbag);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

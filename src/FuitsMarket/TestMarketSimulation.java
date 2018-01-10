@@ -10,24 +10,28 @@ public class TestMarketSimulation {
 	{
 		
 		int marketCapacity = 100;
+		int totCount=4;
 		Market market=new Market(marketCapacity);
 		
+		System.out.println("Total Count"+totCount);
+		
 		int counter=0;
-		while(counter<4)
+		while(counter<64)
 		{
+			
 			counter++;
 			int arrivalType = ThreadLocalRandom.current().nextInt(0, 2);
 		
 		
 			if(arrivalType == 0)
 			{
-				Farmer f=new Farmer(market);
+				Farmer f=new Farmer(counter,market);
 				Thread t=new Thread(f);
 				t.start();
 			}
 			else if(arrivalType == 1)
 			{
-				Consumer c=new Consumer(market);
+				Consumer c=new Consumer(counter,market);
 				Thread t=new Thread(c);
 				t.start();
 			}

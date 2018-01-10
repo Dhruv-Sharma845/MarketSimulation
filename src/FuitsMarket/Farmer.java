@@ -7,9 +7,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Farmer implements Runnable{
 	
 	Market market;
+	int FarmerID;
 	
-	public Farmer(Market market)
+	public Farmer(int _id,Market market)
 	{
+		FarmerID = _id;
 		this.market=market;
 	}
 	public void run()
@@ -30,7 +32,7 @@ public class Farmer implements Runnable{
 		
 		
 		try {
-			market.sellTo(sbag);
+			market.sellTo(FarmerID,sbag);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
