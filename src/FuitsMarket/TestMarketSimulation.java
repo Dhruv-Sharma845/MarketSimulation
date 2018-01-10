@@ -16,7 +16,7 @@ public class TestMarketSimulation {
 		System.out.println("Total Count"+totCount);
 		
 		int counter=0;
-		while(counter<64)
+		while(counter<totCount)
 		{
 			
 			counter++;
