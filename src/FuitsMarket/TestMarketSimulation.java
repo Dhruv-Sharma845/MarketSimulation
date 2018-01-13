@@ -10,19 +10,14 @@ public class TestMarketSimulation {
 	{
 		
 		int marketCapacity = 100;
-		int totCount=4;
 		Market market=new Market(marketCapacity);
 		
-		System.out.println("Total Count"+totCount);
-		
 		int counter=0;
+		int totCount=4;
 		while(counter<totCount)
 		{
-			
 			counter++;
 			int arrivalType = ThreadLocalRandom.current().nextInt(0, 2);
-		
-		
 			if(arrivalType == 0)
 			{
 				Farmer f=new Farmer(counter,market);

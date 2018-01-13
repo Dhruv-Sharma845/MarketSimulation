@@ -32,19 +32,14 @@ public class Market {
 	{
 		System.out.println("Farmer "+id+" has come to sell.");
 		System.out.println("Farmer wants to sell:");
-		System.out.println("apple: "+sellingBag.get("apple"));
-		System.out.println("banana: "+sellingBag.get("banana"));
-		System.out.println("grapes: "+sellingBag.get("grapes"));
-		System.out.println("cherries: "+sellingBag.get("cherries"));
+		showBag(sellingBag,true);
+		
 		int tempSum=capacity;
 		while(remSpace < tempSum)
 		{
 			tempSum=0;
 			for(Map.Entry<String, Integer> entry : sellingBag.entrySet())
-			{
-				tempSum +=entry.getValue();
-				
-			}
+				tempSum +=entry.getValue();	
 			if(remSpace<tempSum)
 			{
 				System.out.println("Farmer is waiting..");
@@ -55,30 +50,17 @@ public class Market {
 				remSpace-=tempSum;
 				break;	
 			}
-			
 		}
-		for(Map.Entry<String, Integer> entry : sellingBag.entrySet())
-		{
-			if(Stock.containsKey(entry.getKey()))
-			{
-				Stock.put(entry.getKey(), entry.getValue() + Stock.get(entry.getKey()));
-			}
-			else
-			{
-				Stock.put(entry.getKey(), entry.getValue());
-			}
-		}
+		updateBag(true,sellingBag);
 		notifyAll();
-		System.out.println("Farmer is done with the selling.");
+		System.out.println("Farmer "+id+" is done with the selling.");
 	}
 	public synchronized void purchaseFrom(int id,HashMap<String,Integer> purchasingBag) throws InterruptedException
 	{
 		System.out.println("\t\t\t\t\t\t\t\t\tConsumer "+id+" has come to purchase.");
 		System.out.println("\t\t\t\t\t\t\t\t\tConsumer wants to purchase: ");
-		System.out.println("\t\t\t\t\t\t\t\t\tapple: "+purchasingBag.get("apple"));
-		System.out.println("\t\t\t\t\t\t\t\t\tbanana: "+purchasingBag.get("banana"));
-		System.out.println("\t\t\t\t\t\t\t\t\tgrapes: "+purchasingBag.get("grapes"));
-		System.out.println("\t\t\t\t\t\t\t\t\tcherries: "+purchasingBag.get("cherries"));
+		showBag(purchasingBag,false);
+		
 		boolean flag=false;
 		
 		int tempSum=capacity;
@@ -103,19 +85,48 @@ public class Market {
 				break;	
 			}
 		}
-		for(Map.Entry<String, Integer> entry : purchasingBag.entrySet())
+		updateBag(true,purchasingBag);
+		notifyAll();
+		System.out.println("\t\t\t\t\t\t\t\t\tConsumer " + id +" is done with the purchasing.");
+	}
+	public void showBag(HashMap<String,Integer> fBag,boolean isFarmer)
+	{
+		if(!isFarmer)
+		{
+			System.out.print("\t\t\t\t\t\t\t\t\t");
+		}
+		System.out.println("apple: "+fBag.get("apple"));
+		if(!isFarmer)
+		{
+			System.out.print("\t\t\t\t\t\t\t\t\t");
+		}
+		System.out.println("banana: "+fBag.get("banana"));
+		if(!isFarmer)
+		{
+			System.out.print("\t\t\t\t\t\t\t\t\t");
+		}
+		System.out.println("grapes: "+fBag.get("grapes"));
+		if(!isFarmer)
+		{
+			System.out.print("\t\t\t\t\t\t\t\t\t");
+		}
+		System.out.println("cherries: "+fBag.get("cherries"));
+	}
+	public void updateBag(boolean isFarmer,HashMap<String,Integer> fBag)
+	{
+		for(Map.Entry<String, Integer> entry : fBag.entrySet())
 		{
 			if(Stock.containsKey(entry.getKey()))
 			{
-				Stock.put(entry.getKey(), Stock.get(entry.getKey())- entry.getValue());
+				if(!isFarmer)
+					Stock.put(entry.getKey(), Stock.get(entry.getKey())- entry.getValue());
+				else if(isFarmer)
+					Stock.put(entry.getKey(), entry.getValue() + Stock.get(entry.getKey()));
 			}
 			else
 			{
 				Stock.put(entry.getKey(), entry.getValue());
 			}
 		}
-		notifyAll();
-		System.out.println("\t\t\t\t\t\t\t\t\tConsumer is done with the purchasing.");
 	}
-	
 }
