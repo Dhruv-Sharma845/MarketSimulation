@@ -20,13 +20,13 @@ public class TestMarketSimulation {
 			int arrivalType = ThreadLocalRandom.current().nextInt(0, 2);
 			if(arrivalType == 0)
 			{
-				Farmer f=new Farmer(counter,market);
+				Farmer f=new Farmer(counter,market,marketCapacity/2);
 				Thread t=new Thread(f);
 				t.start();
 			}
 			else if(arrivalType == 1)
 			{
-				Consumer c=new Consumer(counter,market);
+				Consumer c=new Consumer(counter,market,marketCapacity/4);
 				Thread t=new Thread(c);
 				t.start();
 			}
