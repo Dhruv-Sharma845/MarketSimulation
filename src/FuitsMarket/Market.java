@@ -35,7 +35,7 @@ public class Market {
 		showBag(sellingBag,true);
 		
 		int tempSum=capacity;
-		while(remSpace < tempSum)
+		while(remSpace <= tempSum)
 		{
 			tempSum=0;
 			for(Map.Entry<String, Integer> entry : sellingBag.entrySet())
@@ -85,7 +85,7 @@ public class Market {
 				break;	
 			}
 		}
-		updateBag(true,purchasingBag);
+		updateBag(false,purchasingBag);
 		notifyAll();
 		System.out.println("\t\t\t\t\t\t\t\t\tConsumer " + id +" is done with the purchasing.");
 	}
@@ -128,5 +128,9 @@ public class Market {
 				Stock.put(entry.getKey(), entry.getValue());
 			}
 		}
+	}
+	public HashMap<String,Integer> getMarketStock()
+	{
+		return (HashMap<String,Integer>)Stock.clone();
 	}
 }
