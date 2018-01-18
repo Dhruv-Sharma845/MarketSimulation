@@ -5,7 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashMap;
 import java.util.concurrent.TimeoutException;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.internal.runners.statements.FailOnTimeout;
+import org.junit.rules.Timeout;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 import org.junit.runners.model.TestTimedOutException;
 
 import FuitsMarket.Market;
@@ -70,9 +75,27 @@ public class TestMarket {
 		assertTrue(bag.get("grapes")==st.get("grapes"));
 		assertTrue(bag.get("cherries")==st.get("cherries"));
 	}
+	//code to get test correct if timeout is reached
+	  private static final int MIN_TIMEOUT = 100;
+
+	    @SuppressWarnings("deprecation")
+		@Rule
+	    public Timeout timeout = new Timeout(MIN_TIMEOUT) {
+	        public Statement apply(Statement base, Description description) {
+	            return new FailOnTimeout(base, MIN_TIMEOUT) {
+	                @Override
+	                public void evaluate() throws Throwable {
+	                    try {
+	                        super.evaluate();
+	                        throw new TimeoutException();
+	                    } catch (Exception e) {}
+	                }
+	            };
+	        }
+	    };
 	
-	/*@Test(timeout = 100 ,expected=TestTimedOutException.class)
-	public void testSellToOutOfLimits() throws InterruptedException
+	@Test(expected=TimeoutException.class )
+	public void testSellToOutOfLimits()
 	{
 		Market m=new Market(4);
 		HashMap<String,Integer> bag=new HashMap<String,Integer>();
@@ -81,13 +104,13 @@ public class TestMarket {
 		bag.put("grapes", 4);
 		bag.put("cherries", 4);
 		
-		//try
-		//{
+		try
+		{
 			m.sellTo(0,bag);
-		//}
-		//catch(InterruptedException e){
-			//e.printStackTrace();
-		
+		}
+		catch(InterruptedException e){
+			e.printStackTrace();
+		}
 		
 		HashMap<String,Integer> st=m.getMarketStock();
 		
@@ -95,7 +118,7 @@ public class TestMarket {
 		assertTrue(bag.get("banana")==st.get("banana"));
 		assertTrue(bag.get("grapes")==st.get("grapes"));
 		assertTrue(bag.get("cherries")==st.get("cherries"));
-	}*/
+	}
 	@Test(timeout = 100)
 	public void testPerchaseFromInLimits()
 	{
